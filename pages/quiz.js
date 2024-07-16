@@ -87,6 +87,7 @@ const questions = [
     options: [
       { a: "Rugby World Cup" },
       { b: "Tour de France" },
+      
       { c: "French Open" },
       { d: "Paris Marathon" },
     ],

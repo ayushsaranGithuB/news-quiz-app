@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import styles from '../styles/Quiz.module.css';
 
 const Quiz = ({ questions }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -56,26 +55,38 @@ const Quiz = ({ questions }) => {
     };
 
     return (
-        <div className={styles.quiz}>
+        <>
             {showScore ? (
-                <div className={styles.scoreSection}>
-                    You scored {score} out of {questions.length}
-                    <div>Time taken: {formatTime(totalTimeTaken)}</div>
+                <div className="results card">
+                    <div className='centered'>
+                        <h1>
+                            You scored {score} out of {questions.length}
+                        </h1>
+                        <h3>Time taken: {formatTime(totalTimeTaken)}</h3>
+                    </div>
                     {/* Correct Answers */}
-                    <div className={styles.correctAnswers}>
-                        <h2>Correct Answers:</h2>
+                    <div className='scoring' >
                         <ul>
                             {questions.map((question, index) => (
                                 <li key={index}>
-                                    <strong>Q{index + 1}:</strong> {question.question}<br />
+                                    <h4>
+                                        {index + 1}: {question.question}
+                                    </h4>
                                     {userAnswers[index] === question.correctAnswer ? (
                                         <>
-                                            <strong>You Answered Correctly:</strong> {question.options.find(option => option[userAnswers[index]])[userAnswers[index]]}
+                                            <div className='correct'>
+                                                <strong> {'✓'}</strong> {question.options.find(option => option[userAnswers[index]])[userAnswers[index]]}
+                                            </div>
                                         </>
                                     ) : (
                                         <>
-                                            <strong>Your answer:</strong> {userAnswers[index] ? question.options.find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
-                                            <strong>Correct answer:</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]}
+                                            <div className='wrong'>
+                                                <strong>Your answer:</strong> {userAnswers[index] ? question.options.find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
+                                            </div>
+                                            <div className='correct'>
+                                                <strong>Correct answer:</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]}
+                                            </div>
+
                                         </>
                                     )}
                                     {/* <strong>Your answer:</strong> {userAnswers[index] ? questions[index].options[0][userAnswers[index]] : 'No answer'}<br />
@@ -85,54 +96,68 @@ const Quiz = ({ questions }) => {
                         </ul>
                     </div>
                     {/* Restart Quiz Button */}
-                    <button
-                        onClick={() => {
-                            setCurrentQuestion(0);
-                            setScore(0);
-                            setShowScore(false);
-                            setSelectedAnswer(null);
-                            setStartTime(Date.now());
-                        }}
-                    >Restart Quiz
-                    </button>
-                </div>
-            ) : (
-                <div className={styles.questionSection}>
-                    <div className={styles.questionCount}>
-                        <span>Question {currentQuestion + 1}</span>/{questions.length}
-                    </div>
-                    <div className={styles.questionText}>{questions[currentQuestion].question}</div>
-                    <div className={styles.timer}>Time: {formatTime(timeTaken)}</div>
-
-                    <div className={styles.answerSection}>
-                        {questions[currentQuestion].options.map((option, index) => {
-                            // Assuming each option is an object with a single key-value pair,
-                            // where the key is the option identifier (e.g., "a", "b", "c", "d")
-                            // and the value is the option text.
-                            const key = Object.keys(option)[0]; // Get the first key of the object
-                            const value = option[key]; // Get the value associated with that key
-                            return (
-                                <label key={key} className={styles.answer}>
-                                    <p>{value}</p>
-                                    <input
-                                        type="radio"
-                                        name="answer"
-                                        value={key}
-                                        checked={selectedAnswer === key}
-                                        onChange={() => setSelectedAnswer(key)}
-                                    />
-                                </label>
-                            );
-                        })}
+                    <div className="quiz-navigation">
                         <button
-                            onClick={() => handleAnswerOptionClick(selectedAnswer)} // Use selectedAnswer instead of key
-                            disabled={selectedAnswer === null}
-                        >NEXT
+                            onClick={() => {
+                                setCurrentQuestion(0);
+                                setScore(0);
+                                setShowScore(false);
+                                setSelectedAnswer(null);
+                                setStartTime(Date.now());
+                            }}
+                        >Restart Quiz
                         </button>
                     </div>
                 </div>
+            ) : (
+                <>
+                    <div className="quiz-status">
+                        <div><span>Question {currentQuestion + 1}</span>/{questions.length}</div>
+                        <div>Time: {formatTime(timeTaken)}</div>
+                    </div>
+                    <div className="card" data-v0-t="card">
+
+                        <h3 className="question">
+                            {questions[currentQuestion].question}
+                        </h3>
+                        <div className="options">
+
+
+                            <div role="radiogroup" aria-required="false" dir="ltr" className="custom-grid" tabindex="0">
+
+                                {questions[currentQuestion].options.map((option, index) => {
+                                    // Assuming each option is an object with a single key-value pair,
+                                    // where the key is the option identifier (e.g., "a", "b", "c", "d")
+                                    // and the value is the option text.
+                                    const key = Object.keys(option)[0]; // Get the first key of the object
+                                    const value = option[key]; // Get the value associated with that key
+                                    return (
+                                        <label key={key} className="answer">
+                                            <p>{value}</p>
+                                            <input
+                                                type="radio"
+                                                name="answer"
+                                                value={key}
+                                                checked={selectedAnswer === key}
+                                                onChange={() => setSelectedAnswer(key)}
+                                            />
+                                        </label>
+                                    );
+                                })}
+
+                            </div>
+                            <div className="quiz-navigation">
+                                <button
+                                    onClick={() => handleAnswerOptionClick(selectedAnswer)} // Use selectedAnswer instead of key
+                                    disabled={selectedAnswer === null}
+                                >NEXT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </>
             )}
-        </div>
+        </>
     );
 };
 
