@@ -4,7 +4,7 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers, setC
             <div className="results card">
                 <div className='centered'>
                     <h1>
-                        You scored {score} out of {questions.length}
+                        You scored: <br /> {score} out of {questions.length}
                     </h1>
                     <h3>Time taken: {formatTime(totalTimeTaken)}</h3>
                 </div>
