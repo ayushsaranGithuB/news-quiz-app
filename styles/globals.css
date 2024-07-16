@@ -22,10 +22,7 @@ a:hover {
 
 header {
   display: flex;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 0.5rem 1rem;
   justify-content: flex-end;
   gap: 1.5rem;
   align-items: center;
@@ -41,9 +38,22 @@ header h1 {
 }
 
 
-header a {
-  color: inherit;
+header a:link,
+header a:visited {
+  color: #fff;
   text-decoration: none;
+}
+
+a.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-wrap: nowrap;
+  column-gap: 5px;
+}
+
+a.logo img {
+  width: 40px;
 }
 
 a.icon {

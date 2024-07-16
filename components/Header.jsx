@@ -2,8 +2,8 @@ const Header = () => {
     return (
         <header>
             <h1>
-                <a href="/" className="home">
-                    News Quiz
+                <a href="/" className="logo">
+                    <img src="logo.svg" alt="" /> News Quiz
                 </a>
             </h1>
             <a className="icon" href="/leaderboard" title="Leaderboard">

@@ -173,5 +173,8 @@ const jsonResponse = {
 };
 
 export default function handler(req, res) {
-  res.status(200).json(jsonResponse);
+  // set a 5 second delay to simulate network latency
+  setTimeout(() => {
+    res.status(200).json(jsonResponse);
+  }, 5000);
 }

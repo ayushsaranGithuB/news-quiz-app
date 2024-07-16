@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Quiz from "@/components/Quiz";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Page = () => {
   const [questions, setQuestions] = useState([]);
@@ -15,7 +16,13 @@ const Page = () => {
   }, []);
 
   return (
-    <>{loading ? <div>Loading...</div> : <Quiz questions={questions} />}</>
+    <>
+      {loading ? (
+        <LoadingScreen text="Generating Questions..." />
+      ) : (
+        <Quiz questions={questions} />
+      )}
+    </>
   );
 };
 

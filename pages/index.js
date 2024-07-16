@@ -8,10 +8,8 @@ export default function Home() {
       <main>
         <div className="card centered">
           <h1>How well do you know the news?</h1>
-          <p>
-            Test your knowledge of the news with this quiz. Click the button
-            below to get started.
-          </p>
+          <p>Test your knowledge of the news with this quiz.</p>
+          <p>Click the button below to get started.</p>
           <div className="quiz-navigation">
             <Link href={"/quiz"}>
               <button>Start Quiz</button>
