@@ -12,7 +12,7 @@ function Avatar() {
             <img src={user.picture} alt={user.name} />
         );
     }
-    return <img src="user.svg" alt="login" />;
+    return <img src="/user.svg" alt="login" />;
 }
 
 function UserModal() {
@@ -63,7 +63,7 @@ const Header = () => {
                 </a>
             </h1>
             <a className="icon" href="/leaderboard" title="Leaderboard">
-                <img src="trophy.svg" alt="Leaderboard" />
+                <img src="/trophy.svg" alt="Leaderboard" />
             </a>
             <div className="avatar" onClick={
                 () => {
