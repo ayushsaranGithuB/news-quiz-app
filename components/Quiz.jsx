@@ -117,13 +117,15 @@ const Quiz = ({ questions }) => {
                     </div>
                     <div className="card" data-v0-t="card">
 
-                        <h3 className="question">
+                        <h3 className="question" key={
+                            currentQuestion
+                        }>
                             {questions[currentQuestion].question}
                         </h3>
                         <div className="options">
 
 
-                            <div role="radiogroup" aria-required="false" dir="ltr" className="custom-grid" tabindex="0">
+                            <div role="radiogroup" aria-required="false" dir="ltr" className="custom-grid" tabIndex="0">
 
                                 {questions[currentQuestion].options.map((option, index) => {
                                     // Assuming each option is an object with a single key-value pair,
@@ -132,7 +134,7 @@ const Quiz = ({ questions }) => {
                                     const key = Object.keys(option)[0]; // Get the first key of the object
                                     const value = option[key]; // Get the value associated with that key
                                     return (
-                                        <label key={key} className="answer">
+                                        <label key={`${currentQuestion}-${key}`} className="answer">
                                             <p>{value}</p>
                                             <input
                                                 type="radio"
