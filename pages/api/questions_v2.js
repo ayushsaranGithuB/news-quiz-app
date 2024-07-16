@@ -347,6 +347,10 @@ const jsonResponse = {
 export default function handler(req, res) {
   // set a 5 second delay to simulate network latency
   setTimeout(() => {
+    res.setHeader("Cache-Control", "s-maxage=40");
     res.status(200).json(jsonResponse);
   }, 2000);
 }
+
+// Opt out of caching for all data requests in the route segment
+export const dynamic = "force-dynamic";

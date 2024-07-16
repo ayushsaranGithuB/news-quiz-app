@@ -7,7 +7,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/questions_v2")
+    fetch("/api/questions_v2", { cache: "no-store", next: { revalidate: 0 } })
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.questions);
