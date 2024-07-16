@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import Head from "next/head";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -13,7 +15,11 @@ export default function App({ Component, pageProps }) {
           content="Test your knowledge of the news with this quiz."
         />
       </Head>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Header />
+
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   );
 }
