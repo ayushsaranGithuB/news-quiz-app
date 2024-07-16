@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Results = (score, questions, formatTime, totalTimeTaken, userAnswers, setCurrentQuestion, setScore, setShowScore, setSelectedAnswer, setStartTime) => {
     return (
         <>
@@ -37,7 +39,7 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers, setC
                                                 Learn More:
                                             </p>
                                             <p>
-                                                <a href={question.source.url} target="_blank" rel="noreferrer">{question.source.title} - {question.source.publisher}</a>
+                                                <a href={question.source.url} target="_blank" rel="noreferrer">{question.source.title}</a>
                                             </p>
 
                                         </div>
@@ -50,16 +52,10 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers, setC
                 </div>
                 {/* Restart Quiz Button */}
                 <div className="quiz-navigation">
-                    <button
-                        onClick={() => {
-                            setCurrentQuestion(0);
-                            setScore(0);
-                            setShowScore(false);
-                            setSelectedAnswer(null);
-                            setStartTime(Date.now());
-                        }}
-                    >Restart Quiz
-                    </button>
+                    <Link href='/'>
+                        <button >Restart Quiz
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>
