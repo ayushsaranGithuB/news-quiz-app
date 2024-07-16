@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Results from './Results';
 
 const Quiz = ({ questions }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -57,58 +58,7 @@ const Quiz = ({ questions }) => {
     return (
         <>
             {showScore ? (
-                <div className="results card">
-                    <div className='centered'>
-                        <h1>
-                            You scored {score} out of {questions.length}
-                        </h1>
-                        <h3>Time taken: {formatTime(totalTimeTaken)}</h3>
-                    </div>
-                    {/* Correct Answers */}
-                    <div className='scoring' >
-                        <ul>
-                            {questions.map((question, index) => (
-                                <li key={index}>
-                                    <h4>
-                                        {index + 1}: {question.question}
-                                    </h4>
-                                    {userAnswers[index] === question.correctAnswer ? (
-                                        <>
-                                            <div className='correct'>
-                                                <strong> {'✓'}</strong> {question.options.find(option => option[userAnswers[index]])[userAnswers[index]]}
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className='wrong'>
-                                                <strong>Your answer:</strong> {userAnswers[index] ? question.options.find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
-                                            </div>
-                                            <div className='correct'>
-                                                <strong>Correct answer:</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]}
-                                            </div>
-
-                                        </>
-                                    )}
-                                    {/* <strong>Your answer:</strong> {userAnswers[index] ? questions[index].options[0][userAnswers[index]] : 'No answer'}<br />
-                                    <strong>Correct answer:</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]} */}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    {/* Restart Quiz Button */}
-                    <div className="quiz-navigation">
-                        <button
-                            onClick={() => {
-                                setCurrentQuestion(0);
-                                setScore(0);
-                                setShowScore(false);
-                                setSelectedAnswer(null);
-                                setStartTime(Date.now());
-                            }}
-                        >Restart Quiz
-                        </button>
-                    </div>
-                </div>
+                Results(score, questions, formatTime, totalTimeTaken, userAnswers, setCurrentQuestion, setScore, setShowScore, setSelectedAnswer, setStartTime)
             ) : (
                 <>
                     <div className="quiz-status">
@@ -164,3 +114,6 @@ const Quiz = ({ questions }) => {
 };
 
 export default Quiz;
+
+
+

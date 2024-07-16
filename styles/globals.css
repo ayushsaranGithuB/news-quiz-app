@@ -5,6 +5,16 @@ body {
   background-color: #eaeaea;
 }
 
+a:link,
+a:visited {
+  color: #096285;
+}
+
+a:hover {
+  color: #680d81;
+}
+
+
 /* GLOBAL UTILITY CLASSES  */
 .centered {
   text-align: center;
@@ -255,6 +265,22 @@ h3.question {
 .scoring li .wrong {
   color: red;
 }
+
+.source {
+  margin: 0.8rem 0;
+}
+
+.source p {
+  margin: 0 0 0.3em;
+  color: #666;
+  font-size: 0.8rem;
+  ;
+}
+
+.source a {
+  font-size: 1rem;
+}
+
 
 /* Leaderboard  */
 
