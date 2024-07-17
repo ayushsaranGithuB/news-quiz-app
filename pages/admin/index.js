@@ -1,13 +1,20 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
+import AdminQuestionsManager from "../../components/AdminQuestionsManager";
 
 export default function Index() {
+
+
   const { user, error, isLoading } = useUser();
+  
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
+
+
   if (user) {
     console.log(user);
+
   }
 
   if (user && user.roleType.includes("Admin")) {
@@ -17,6 +24,7 @@ export default function Index() {
         <p>
           Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
         </p>
+        <AdminQuestionsManager />
       </div>
     );
   }

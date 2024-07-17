@@ -39,7 +39,7 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers) => {
                                                 Learn More:
                                             </p>
                                             <p>
-                                                <a href={question.source.url} target="_blank" rel="noreferrer">{question.source.title}</a>
+                                                <a href={question.news_url} target="_blank" rel="noreferrer">{question.news_title}</a>
                                             </p>
 
                                         </div>
