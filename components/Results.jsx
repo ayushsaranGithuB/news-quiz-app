@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const Results = (score, questions, formatTime, totalTimeTaken, userAnswers, setCurrentQuestion, setScore, setShowScore, setSelectedAnswer, setStartTime) => {
+const Results = (score, questions, formatTime, totalTimeTaken, userAnswers) => {
     return (
         <>
             <div className="results card">
