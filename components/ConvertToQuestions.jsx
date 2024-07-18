@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from './LoadingScreen';
 
-const ConvertToQuestions = ({ setStage, articles }) => {
+const ConvertToQuestions = ({ setStage, articles, setQuestions }) => {
 
     const [generatedquestions, setGeneratedquestions] = useState([]);
 
@@ -66,6 +66,11 @@ const ConvertToQuestions = ({ setStage, articles }) => {
         );
     }
 
+    const handleSubmit = async () => {
+        setQuestions(generatedquestions);
+        setStage(3);
+    }
+
     return (
         <div>
             <details>
@@ -92,7 +97,7 @@ const ConvertToQuestions = ({ setStage, articles }) => {
                 </ul>
             </details>
 
-            <button onClick={() => setStage('3')}>Insert into Supabase</button>
+            <button onClick={handleSubmit}>Insert into Supabase</button>
 
         </div>
     );

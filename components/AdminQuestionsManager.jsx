@@ -3,10 +3,12 @@ import FetchNewsArticles from './FetchNewsArticles';
 import ConvertToQuestions from './ConvertToQuestions';
 
 import styles from '@/styles/Admin.module.css';
+import PostToSupabase from './PostToSupabase';
 
 const AdminQuestionsManager = () => {
 
     const [articlesToConvert, setArticlesToConvert] = useState([]);
+    const [questions, setQuestions] = useState([]);
 
     const [stage, setStage] = useState(0);
 
@@ -77,7 +79,13 @@ const AdminQuestionsManager = () => {
 
         if (stageValue === 2) {
             return (
-                <ConvertToQuestions setStage={setStage} articles={articlesToConvert} />
+                <ConvertToQuestions setStage={setStage} articles={articlesToConvert} setQuestions={setQuestions} />
+            );
+        }
+
+        if (stageValue === 3) {
+            return (
+                <PostToSupabase setStage={setStage} questions={questions} />
             );
         }
 

@@ -55,7 +55,7 @@ async function handleRequest(req, res) {
   //  Parse the response and store the questions in an array
   //  Return the array of questions
   try {
-    for (let i = 40; i < articles.length; i += 3) {
+    for (let i = 0; i < articles.length; i += 3) {
       const articles_batch = articles.slice(i, i + 3);
       try {
         let response = await makeOpenAICall(articles_batch);
