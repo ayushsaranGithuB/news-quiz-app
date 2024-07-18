@@ -4,12 +4,12 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 function Avatar() {
     const { user, error, isLoading } = useUser();
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div>.</div>;
     if (error) return <div>{error.message}</div>;
 
     if (user) {
         return (
-            <img src={user.picture} alt={user.name} />
+            <img src={user.picture} alt={user.name} title='View Profile' />
         );
     }
     return <img src="/user.svg" alt="login" />;
@@ -31,7 +31,7 @@ function UserModal() {
                         }
                     }>X</span>
                     <Avatar />
-                    <a href="/profile"> My Profile</a>
+                    {/* <a href="/profile"> My Profile</a> */}
                     <a href="/api/auth/logout" title="Logout">Log Out</a>
                     {user.roleType.includes("Admin") ? <a href="/admin" title="Admin Panel">Admin Panel</a> : null}
                 </div>
@@ -69,7 +69,7 @@ const Header = () => {
                 () => {
                     document.querySelector('.profilemodal').style.display = 'flex';
                 }
-            } title="Sign Up or Login">
+            }>
                 <span>
                     <Avatar />
                 </span>

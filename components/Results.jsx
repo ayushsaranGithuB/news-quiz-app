@@ -6,8 +6,17 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers) => {
             <div className="results card">
                 <div className='centered'>
                     <h1>
-                        You scored: <br /> {score} out of {questions.length}
+                        <small>You scored: </small> {score} <small> out of </small> {questions.length}
                     </h1>
+                    <h2>
+                        {/* switch statement to rank performance based on score between 0 and 5 */}
+                        {score <= 1 ?
+                            'You better start reading the news.'
+                            : score <= 2 ? 'Ok, your\'e somewhat informed.'
+                                : score <= 3 ? 'Not Bad! Keep reading the news.'
+                                    : score <= 4 ? 'Great job! You\'re well informed. '
+                                        : 'Excellent job! You\'re a news junkie!'}
+                    </h2>
                     <h3>Time taken: {formatTime(totalTimeTaken)}</h3>
                 </div>
                 {/* Correct Answers */}
@@ -53,8 +62,7 @@ const Results = (score, questions, formatTime, totalTimeTaken, userAnswers) => {
                 {/* Restart Quiz Button */}
                 <div className="quiz-navigation">
                     <Link href='/'>
-                        <button >Restart Quiz
-                        </button>
+                        <button >Try Another</button>
                     </Link>
                 </div>
             </div>

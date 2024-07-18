@@ -62,8 +62,8 @@ const Quiz = ({ questions }) => {
             ) : (
                 <>
                     <div className="quiz-status">
-                        <div><span>Question {currentQuestion + 1}</span>/{questions.length}</div>
-                        <div>Time: {formatTime(timeTaken)}</div>
+                        <div><span>Question {currentQuestion + 1}</span> of {questions.length}</div>
+                        <div className='timer'><img src='/timer.svg' width={18} /> {formatTime(timeTaken)}</div>
                     </div>
                     <div className="card" data-v0-t="card">
 
