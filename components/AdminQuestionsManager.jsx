@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import FetchNewsArticles from './FetchNewsArticles';
+import ConvertToQuestions from './ConvertToQuestions';
 
 import styles from '@/styles/Admin.module.css';
 
 const AdminQuestionsManager = () => {
 
+    const [articlesToConvert, setArticlesToConvert] = useState([]);
 
     const [stage, setStage] = useState(0);
 
-    useEffect(() => {
-        setStage(0);
-    }, []);
 
     function renderNavigation() {
         return (
@@ -19,7 +18,7 @@ const AdminQuestionsManager = () => {
 
                     <li>
                         {stage > 0 ? (
-                            <a href="#" onClick={() => setStage(0)}><span className={styles.number}>1</span> Fetch News</a>
+                            <a href="#" onClick={() => setStage(1)}><span className={styles.number}>1</span> Fetch News</a>
                         ) : (
                             <>
                                 <span className={styles.number}>1</span> Fetch News
@@ -31,7 +30,7 @@ const AdminQuestionsManager = () => {
                     </li>
                     <li>
                         {stage > 1 ? (
-                            <a href="#" onClick={() => setStage(1)}><span className={styles.number}>2</span> Convert to Quiz Questions</a>
+                            <a href="#" onClick={() => setStage(2)}><span className={styles.number}>2</span> Convert to Quiz Questions</a>
                         ) : (
                             <>
                                 <span className={styles.number}>2</span> Convert to Quiz Questions
@@ -43,7 +42,7 @@ const AdminQuestionsManager = () => {
                     </li>
                     <li>
                         {stage > 2 ? (
-                            <a href="#" onClick={() => setStage(2)}><span className={styles.number}>3</span> Insert into Supabase</a>
+                            <a href="#" onClick={() => setStage(3)}><span className={styles.number}>3</span> Insert into Supabase</a>
                         ) : (
                             <>
                                 <span className={styles.number}>3</span> Insert into Supabase
@@ -72,16 +71,13 @@ const AdminQuestionsManager = () => {
 
         if (stageValue === 1) {
             return (
-                <FetchNewsArticles setStage={setStage} />
+                <FetchNewsArticles setStage={setStage} setArticlesToConvert={setArticlesToConvert} />
             );
         }
 
         if (stageValue === 2) {
             return (
-                <div>
-                    <h1>2. Convert to Quiz Questions via chatGPT</h1>
-                    <button>Start</button>
-                </div>
+                <ConvertToQuestions setStage={setStage} articles={articlesToConvert} />
             );
         }
 

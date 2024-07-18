@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LoadingScreen from './LoadingScreen';
 import NewsSelector from './NewsSelector';
 
-const FetchNewsArticles = ({ setStage }) => {
+const FetchNewsArticles = ({ setStage, setArticlesToConvert }) => {
 
     const [newsArticles, setNewsArticles] = useState([]);
     const [selectedArticles, setSelectedArticles] = useState([]);
@@ -909,6 +909,11 @@ const FetchNewsArticles = ({ setStage }) => {
         )
     }
 
+    function handleClick() {
+        setArticlesToConvert(selectedArticles);
+        setStage(2);
+    }
+
     return (
         <>
             <h2>Succes!</h2>
@@ -918,7 +923,7 @@ const FetchNewsArticles = ({ setStage }) => {
             </details>
             <NewsSelector articles={newsArticles} selectedArticles={selectedArticles} setSelectedArticles={setSelectedArticles} />
             <p>
-                <button onClick={() => setStage(2)}>Convert to Questions</button>
+                <button onClick={handleClick}>Convert to Questions</button>
             </p>
         </>
     )

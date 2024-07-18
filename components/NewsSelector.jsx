@@ -5,8 +5,8 @@ const NewsSelector = ({ articles, selectedArticles, setSelectedArticles }) => {
 
     useEffect(() => {
         setSelectedArticles(articles);
-
     }, [articles]);
+
 
     const handleCheckboxChange = (url, isChecked) => {
 
