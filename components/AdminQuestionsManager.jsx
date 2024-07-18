@@ -1,52 +1,107 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/initSupabase';
+import FetchNewsArticles from './FetchNewsArticles';
+
+import styles from '@/styles/Admin.module.css';
+
 const AdminQuestionsManager = () => {
 
-    const [questions, setQuestions] = useState([]);
 
-    const fetchQuestions = async () => {
-        const { data: questions } = await supabase
-            .from('questions')
-            .select('*')
-        setQuestions(questions);
-    };
+    const [stage, setStage] = useState(0);
 
     useEffect(() => {
-        fetchQuestions();
+        setStage(0);
     }, []);
+
+    function renderNavigation() {
+        return (
+            <nav className={styles.inline_navigation}>
+                <ul>
+
+                    <li>
+                        {stage > 0 ? (
+                            <a href="#" onClick={() => setStage(0)}><span className={styles.number}>1</span> Fetch News</a>
+                        ) : (
+                            <>
+                                <span className={styles.number}>1</span> Fetch News
+                            </>
+                        )}
+                    </li>
+                    <li className={styles.arrow}>
+                        {'→'}
+                    </li>
+                    <li>
+                        {stage > 1 ? (
+                            <a href="#" onClick={() => setStage(1)}><span className={styles.number}>2</span> Convert to Quiz Questions</a>
+                        ) : (
+                            <>
+                                <span className={styles.number}>2</span> Convert to Quiz Questions
+                            </>
+                        )}
+                    </li>
+                    <li className={styles.arrow}>
+                        {'→'}
+                    </li>
+                    <li>
+                        {stage > 2 ? (
+                            <a href="#" onClick={() => setStage(2)}><span className={styles.number}>3</span> Insert into Supabase</a>
+                        ) : (
+                            <>
+                                <span className={styles.number}>3</span> Insert into Supabase
+                            </>
+
+                        )}
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
+
+    function StageManager(stageObject) {
+
+        // Convert stage object to a number
+        const stageValue = stageObject.stage;
+
+        if (stageValue === 0) {
+            return (
+                <div>
+                    <h1>1. Fetch News from Feedrika</h1>
+                    <button onClick={() => setStage(1)}>Start</button>
+                </div>
+            );
+        }
+
+        if (stageValue === 1) {
+            return (
+                <FetchNewsArticles setStage={setStage} />
+            );
+        }
+
+        if (stageValue === 2) {
+            return (
+                <div>
+                    <h1>2. Convert to Quiz Questions via chatGPT</h1>
+                    <button>Start</button>
+                </div>
+            );
+        }
+
+        return (
+            <p>
+                Stage: {stageValue}
+            </p>
+
+        )
+    }
 
 
     return (
         <>
-            <ul>
-                {questions.map((question) => (
-                    <li key={question.url}>
-                        <p>
-                            <strong>Question:</strong> {question.question}
-                        </p>
-                        <p>
-                            {question.options.map((option, index) => {
-                                // Assuming each option is an object with a single key-value pair,
-                                // where the key is the option identifier (e.g., "a", "b", "c", "d")
-                                // and the value is the option text.
-                                const key = Object.keys(option)[0]; // Get the first key of the object
-                                const value = option[key]; // Get the value associated with that key
-                                return (
-                                    <span key={`${index}-${key}`}
-                                        // if the key is equal to the correct answer, then make the text green
-                                        style={key === question.correctAnswer ? { color: 'green' } : { color: 'black' }}
-                                    >
-                                        [ {value} ]
-                                    </span>
-                                );
-                            })}
-
-                        </p>
-                    </li>
-                ))}
-            </ul>
+            {renderNavigation()}
+            <StageManager stage={stage} />
         </>
     );
+
+
 }
 
 export default AdminQuestionsManager;

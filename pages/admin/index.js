@@ -1,5 +1,6 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import AdminQuestionsManager from "../../components/AdminQuestionsManager";
+import styles from '@/styles/Admin.module.css';
 
 export default function Index() {
 
@@ -19,11 +20,7 @@ export default function Index() {
 
   if (user && user.roleType.includes("Admin")) {
     return (
-      <div className="centered">
-        <h1>Admin Panel</h1>
-        <p>
-          Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
-        </p>
+      <div className={styles.adminPage}>
         <AdminQuestionsManager />
       </div>
     );

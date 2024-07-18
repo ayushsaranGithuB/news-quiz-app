@@ -1,0 +1,49 @@
+.questionTable {
+    border-collapse: collapse;
+    max-width: 90%;
+    margin: 1.5em auto;
+    text-align: left;
+    font-size: 14px;
+}
+
+.questionTable thead tr,
+.questionTable tfoot tr {
+    background-color: #484848;
+    color: #fff;
+    text-align: center;
+}
+
+
+.questionTable th,
+.questionTable td {
+    padding: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.questionTable td.checkbox {
+    text-align: center;
+}
+
+.questionTable label {
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+}
+
+/* .questionTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.questionTable tr:hover {
+    background-color: #ddd;
+} */
+
+.questionTable tbody tr {
+    opacity: 0.5;
+    background-color: #fff;
+
+}
+
+.questionTable tr:has(input:checked) {
+    opacity: 1;
+}
