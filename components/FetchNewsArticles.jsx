@@ -14,14 +14,12 @@ const FetchNewsArticles = ({ setStage, setArticlesToConvert }) => {
     const [error, setError] = useState(null);
 
 
-    const API_KEY = process.env.FEEDRIKA_API_KEY;
-    const url = `https://api.feedrika.com/latest?apiKey=${API_KEY}`;
-
     const fetchNewsArticles = async () => {
-        const response = await fetch(url);
+        const response = await fetch('/api/feedRika');
         if (response.ok) {
             const data = await response.json();
-            setNewsArticles(data.articles);
+            console.log(data);
+            setNewsArticles(data.result);
         } else {
             setIsError(true);
             setError(response.statusText);
