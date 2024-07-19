@@ -432,15 +432,19 @@ h3.question {
 
 table.leaderboard {
   width: 90%;
-  margin: 0 auto;
+  margin: 1rem auto 2rem;
   border-collapse: collapse;
-  margin-top: 1rem;
+  border-bottom: 1px solid #ccc;
 }
 
 table.leaderboard th {
-  background-color: #333;
+  background-color: #5c5c5c;
   color: #fff;
   padding: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 0.8em;
   text-align: left;
 }
 
