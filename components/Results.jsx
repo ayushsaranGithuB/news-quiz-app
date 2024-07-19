@@ -30,7 +30,7 @@ const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) 
                         {/* switch statement to rank performance based on score between 0 and 5 */}
                         {score <= 1 ?
                             'Better start reading the news.'
-                            : score <= 2 ? 'Your\'e somewhat informed.'
+                            : score <= 2 ? 'You\'re somewhat informed.'
                                 : score <= 3 ? 'Keep reading the news.'
                                     : score <= 4 ? 'You\'re well informed. '
                                         : 'You\'re a news junkie!'}
