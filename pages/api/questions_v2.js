@@ -1,7 +1,10 @@
 import { supabase } from "@/lib/initSupabase";
 
 const fetchQuestions = async () => {
-  const { data: questions } = await supabase.from("questions").select("*");
+  const { data: questions } = await supabase
+    .from("questions")
+    .select("*")
+    .order("id", { ascending: false });
   return questions;
 };
 
