@@ -10,7 +10,7 @@ async function makeOpenAICall(articles_batch) {
     messages: [
       {
         role: "system",
-        content: `Given a json array from a news api, use it to generate multiple choice questions for a quiz. Return ONLY! JSON like this :
+        content: `Given a json array from a news api, use it to generate multiple choice questions for a quiz. Return ONLY! JSON like this exaple :
             '[
                 {
                     "question": "What is the latest news on the conflict in Ukraine?",
@@ -27,7 +27,7 @@ async function makeOpenAICall(articles_batch) {
                 },
             ]'
                 
-            JSON: 
+            JSON TO CONVERT: 
             ${JSON.stringify(articles_batch)}
             `,
         maxtokens: 4000,

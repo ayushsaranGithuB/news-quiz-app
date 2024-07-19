@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
+
 import FetchNewsArticles from './FetchNewsArticles';
 import ConvertToQuestions from './ConvertToQuestions';
+import PostToSupabase from './PostToSupabase';
 
 import styles from '@/styles/Admin.module.css';
-import PostToSupabase from './PostToSupabase';
 
 const AdminQuestionsManager = () => {
 
@@ -57,41 +59,28 @@ const AdminQuestionsManager = () => {
         );
     }
 
-    function StageManager(stageObject) {
-
-        // Convert stage object to a number
-        const stageValue = stageObject.stage;
-
-        if (stageValue === 0) {
-            return (
-                <div>
-                    <h1>Generate New Questions</h1>
-                    <button onClick={() => setStage(1)}>Fetch Articles</button>
-                </div>
-            );
-        }
-
-        if (stageValue === 1) {
-            return (
-                <FetchNewsArticles setStage={setStage} setArticlesToConvert={setArticlesToConvert} />
-            );
-        }
-
-        if (stageValue === 2) {
-            return (
-                <ConvertToQuestions setStage={setStage} articles={articlesToConvert} setQuestions={setQuestions} />
-            );
-        }
-
-        if (stageValue === 3) {
-            return (
-                <PostToSupabase setStage={setStage} questions={questions} />
-            );
+    function StageManager({ stage }) {
+        switch (stage) {
+            case 0:
+                return (
+                    <div>
+                        <h1>Generate New Questions</h1>
+                        <button onClick={() => setStage(1)}>Fetch Articles</button>
+                    </div>
+                );
+            case 1:
+                return <FetchNewsArticles setStage={setStage} setArticlesToConvert={setArticlesToConvert} />;
+            case 2:
+                return <ConvertToQuestions setStage={setStage} articles={articlesToConvert} setQuestions={setQuestions} />;
+            case 3:
+                return <PostToSupabase setStage={setStage} questions={questions} />;
+            default:
+                return <p>Stage: {stage}</p>;
         }
 
         return (
             <p>
-                Stage: {stageValue}
+                Stage: {stage}
             </p>
 
         )
@@ -100,6 +89,9 @@ const AdminQuestionsManager = () => {
 
     return (
         <>
+            <Head>
+                <title>Admin - NewsQuiz</title>
+            </Head>
             {renderNavigation()}
             <StageManager stage={stage} />
         </>
