@@ -27,10 +27,10 @@ function UserModal() {
                         () => {
                             document.querySelector('.profilemodal').style.display = 'none';
                         }
-                    }>X</span>
+                    }>x</span>
                     <Avatar />
                     {/* <a href="/profile"> My Profile</a> */}
-                    <a href="/api/auth/logout" title="Logout">Log Out</a>
+                    <a href="/api/auth/logout" className='button' title="Logout">Log Out</a>
                     {user.roleType.includes("Admin") ? <a href="/admin" title="Admin Panel">Admin Panel</a> : null}
                 </div>
             </div>
@@ -43,9 +43,9 @@ function UserModal() {
                     () => {
                         document.querySelector('.profilemodal').style.display = 'none';
                     }
-                }>X</span>
+                }>x</span>
                 <Avatar />
-                <a href="/api/auth/login" title="Sign Up or Login">Sign Up or Login</a>
+                <a className='button' href="/api/auth/login" title="Sign Up or Login">Sign in</a>
             </div>
         </div>
     );
