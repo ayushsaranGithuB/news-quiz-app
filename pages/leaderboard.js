@@ -1,10 +1,13 @@
+import styles from "../styles/Leaderboard.module.css";
+
 const LeaderBoard = () => {
   return (
     <>
       <div className="card">
         <h1 className="centered">LeaderBoard</h1>
+        <h2 className="centered">Coming soon...</h2>
 
-        <table className="leaderboard">
+        <table className={styles.leaderboard}>
           <thead>
             <tr>
               <th>Rank</th>
@@ -40,11 +43,11 @@ const LeaderBoard = () => {
             </tr>
           </tbody>
         </table>
-
+        {/* 
         <div className="centered">
           <h4>Sign-Up to see your score on the LeaderBoard</h4>
           <button>Sign-Up</button>
-        </div>
+        </div> */}
       </div>
     </>
   );

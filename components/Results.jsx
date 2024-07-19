@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import styles from '../styles/Results.module.css';
 
 const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) => {
     return (
         <>
-            <div className="results card">
+            <div className={styles.results + " card"}>
                 <div className='centered'>
                     <h1>
                         {score <= 1 ?
@@ -15,7 +16,7 @@ const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) 
                         <br />
                         You scored {score} out of {questions.length}
                     </h1>
-                    <div className='stars'>
+                    <div className={styles.stars}>
                         {
                             // Display 5 stars, if i=score, add class 'active' to star, if i>score, add class 'inactive' to star
                             Array.from({ length: 5 }, (_, i) => (
@@ -38,30 +39,30 @@ const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) 
                     <h3>Time taken <img src='/timer-dark-svg.png' width={16} height={16} /> {formatTime(totalTimeTaken)}</h3>
                 </div>
                 {/* Correct Answers */}
-                <div className='scoring'>
+                <div className={styles.scoring}>
                     <ul>
                         {questions.map((question, index) => (
                             <li key={index}>
-                                <h4 className='answer'>
+                                <h4 className="answer">
                                     {index + 1}: {question.question}
                                 </h4>
                                 {userAnswers[index] === question.correctAnswer ? (
                                     <>
-                                        <div className='correct'>
+                                        <div className={styles.correct}>
                                             <strong> {'✓'}</strong> {question.options.find(option => option[userAnswers[index]])[userAnswers[index]]}
                                         </div>
                                     </>
                                 ) : (
                                     <>
-                                        <div className='wrong'>
+                                        <div className={styles.wrong}>
                                             <strong>{'✖'}</strong> {userAnswers[index] ? question.options.find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
                                         </div>
-                                        <div className='correct'>
+                                        <div className={styles.correct}>
                                             <strong>{'✓'}</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]}
                                         </div>
                                         {/* Source */}
 
-                                        <div className='source'>
+                                        <div className={styles.source}>
                                             <p>
                                                 Learn More:
                                             </p>

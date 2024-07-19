@@ -19,7 +19,7 @@ p.text {
 
 .icon {
     animation: bounce 1s infinite ease-in-out;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 @keyframes bounce {
