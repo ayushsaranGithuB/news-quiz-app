@@ -149,13 +149,6 @@ main {
   margin: 0 1.5rem;
 }
 
-@media screen and (min-width: 600px) {
-  main {
-    margin: 0 auto;
-  }
-
-}
-
 
 /* QUIZ CARDS */
 
@@ -482,4 +475,12 @@ table.leaderboard tr:last-child td:first-child {
 
 table.leaderboard tr:last-child td:last-child {
   border-radius: 0 0 9px 0;
+}
+
+
+@media screen and (min-width: 600px) {
+  main {
+    margin: 0 auto;
+  }
+
 }

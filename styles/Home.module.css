@@ -9,6 +9,13 @@
   text-align: center;
   text-shadow: 0 4px 4px #00000025;
   margin: 3rem 2.5rem 2rem;
+  animation: fade-up 1s forwards ease-out;
+}
+
+.homepage .card {
+  animation: fade-up 1s forwards ease-out;
+  animation-delay: 400ms;
+  opacity: 0;
 }
 
 .homepage h2 {
@@ -46,4 +53,26 @@
 
 button.startButton:hover {
   box-shadow: 0 6px 32px #ffa16b9b;
+}
+
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .homepage h1 {
+    font-size: 3em;
+    line-height: 1.2em;
+    margin: 3rem 6rem 2rem;
+  }
+
 }
