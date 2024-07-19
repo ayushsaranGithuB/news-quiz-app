@@ -58,7 +58,7 @@ const Quiz = ({ questions }) => {
     return (
         <>
             {showScore ? (
-                Results(score, questions, formatTime, totalTimeTaken, userAnswers)
+                <Results score={score} questions={questions} formatTime={formatTime} totalTimeTaken={totalTimeTaken} userAnswers={userAnswers} />                
             ) : (
                 <>
                     <div className="quiz-status">
