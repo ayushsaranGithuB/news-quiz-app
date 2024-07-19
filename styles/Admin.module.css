@@ -1,5 +1,5 @@
 .adminPage {
-    margin: 1em auto;
+    margin: 1em auto 3em;
     text-align: center;
 }
 
@@ -55,4 +55,32 @@ li.arrow {
 
 .inline_navigation li a .number {
     background-color: #56878d;
+}
+
+/* GENERATED QUESTIONS */
+
+.generatedQuestions ul {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 3em;
+}
+
+
+.generatedQuestions li {
+    margin-bottom: 1em;
+}
+
+.generatedQuestions li ul {
+    margin: 1em 0;
+    list-style-type: disc;
+}
+
+.generatedQuestions li details {
+    font-size: 0.9em;
+}
+
+
+.generatedQuestions li details summary {
+    font-size: 1.1em;
+    font-weight: 600;
 }

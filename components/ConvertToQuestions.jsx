@@ -1,6 +1,8 @@
 // OpenAi powered tool to convert a JSON object of news articles into multiple choice quiz questions.
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from './LoadingScreen';
+import styles from '@/styles/Admin.module.css';
+
 
 const ConvertToQuestions = ({ setStage, articles, setQuestions }) => {
 
@@ -72,16 +74,16 @@ const ConvertToQuestions = ({ setStage, articles, setQuestions }) => {
     }
 
     return (
-        <div>
-            <details>
-                <summary>
-                    <h4>{generatedquestions.length} Questions Generated</h4>
-                </summary>
-                <ul>
-                    {generatedquestions.map((question, index) => (
-                        <li key={index}>
+        <div className={styles.generatedQuestions}>
+            <h2>{generatedquestions.length} Questions Generated</h2>
 
-                            <p>{question.question}</p>
+            <ul>
+                {generatedquestions.map((question, index) => (
+                    <li key={index}>
+                        <details>
+                            <summary>
+                                {question.question}
+                            </summary>
 
                             <ul>
                                 {question.options.map((option, index) => (
@@ -92,10 +94,11 @@ const ConvertToQuestions = ({ setStage, articles, setQuestions }) => {
                             <p>News Title: {question.news_title}</p>
                             <p>News URL: <a href={question.news_url}>{question.news_url}</a></p>
                             <p>Difficulty: {question.difficulty}</p>
-                        </li>
-                    ))}
-                </ul>
-            </details>
+                        </details>
+                    </li>
+                ))}
+            </ul>
+
 
             <button onClick={handleSubmit}>Insert into Supabase</button>
 

@@ -65,8 +65,8 @@ const AdminQuestionsManager = () => {
         if (stageValue === 0) {
             return (
                 <div>
-                    <h1>1. Fetch News from Feedrika</h1>
-                    <button onClick={() => setStage(1)}>Start</button>
+                    <h1>Generate New Questions</h1>
+                    <button onClick={() => setStage(1)}>Fetch Articles</button>
                 </div>
             );
         }

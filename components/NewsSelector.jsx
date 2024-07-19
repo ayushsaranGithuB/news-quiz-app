@@ -28,13 +28,31 @@ const NewsSelector = ({ articles, selectedArticles, setSelectedArticles }) => {
         }
     };
 
+    const checkUncheckAll = (isChecked) => {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        if (isChecked) {
+            setSelectedArticles(articles);
+            // Check all checkboxes
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+        } else {
+            setSelectedArticles([]);
+            // Uncheck all checkboxes
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+    }
+
 
     return (
         <>
             <table className={styles.questionTable}>
                 <thead>
                     <tr>
-                        <th >Total: {articles.length}
+                        <th>
+                            <input type="checkbox" defaultChecked="true" onChange={(e) => checkUncheckAll(e.target.checked)} />
                         </th>
                         <th>
                             Selected: {selectedArticles.length} </th>
