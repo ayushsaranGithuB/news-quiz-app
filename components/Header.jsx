@@ -4,10 +4,9 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 function Avatar() {
     const { user, error, isLoading } = useUser();
 
-    if (isLoading) return <div>.</div>;
     if (error) return <div>{error.message}</div>;
 
-    if (user) {
+    if (user && !isLoading) {
         return (
             <img src={user.picture} alt={user.name} title='View Profile' />
         );
@@ -18,10 +17,9 @@ function Avatar() {
 function UserModal() {
     const { user, error, isLoading } = useUser();
 
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
 
-    if (user) {
+    if (user && !isLoading) {
         return (
             <div className="profilemodal">
                 <div className="modal-content">
