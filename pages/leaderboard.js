@@ -1,11 +1,56 @@
+import { useEffect, useState } from "react";
 import styles from "../styles/Leaderboard.module.css";
+import { supabase } from "@/lib/initSupabase";
 
 const LeaderBoard = () => {
+  const [topScores, SetTopScores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  async function getScores() {
+    // get the 20 top users, by adding up the sum of the scores for each user
+
+    const { data, error } = await supabase
+      .from("user_scores_view")
+      .select("*")
+      .order("total_score", { ascending: false })
+      .limit(20);
+
+    if (error) {
+      console.log(error);
+      return false;
+    }
+
+    console.log(data);
+
+    SetTopScores(data);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getScores();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Error: {error.message}</h1>;
+  }
+
+  const scoreRow = (user, index) => (
+    <tr>
+      <td className="rank">{index + 1}</td>
+      <td className="name">{user.nickname}</td>
+      <td className="score">{user.total_score}</td>
+    </tr>
+  );
+
   return (
     <>
       <div className="card">
         <h1 className="centered">LeaderBoard</h1>
-        <h2 className="centered">Coming soon...</h2>
 
         <table className={styles.leaderboard}>
           <thead>
@@ -15,33 +60,7 @@ const LeaderBoard = () => {
               <th className="score">Score</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td className="rank">1</td>
-              <td className="name">John Doe</td>
-              <td className="score">100</td>
-            </tr>
-            <tr>
-              <td className="rank">2</td>
-              <td className="name">Jane Doe</td>
-              <td className="score">90</td>
-            </tr>
-            <tr>
-              <td className="rank">3</td>
-              <td className="name">John Smith</td>
-              <td className="score">80</td>
-            </tr>
-            <tr>
-              <td className="rank">4</td>
-              <td className="name">Jane Smith</td>
-              <td className="score">70</td>
-            </tr>
-            <tr>
-              <td className="rank">5</td>
-              <td className="name">John Johnson</td>
-              <td className="score">60</td>
-            </tr>
-          </tbody>
+          <tbody>{topScores.map((user, index) => scoreRow(user, index))}</tbody>
         </table>
         {/* 
         <div className="centered">

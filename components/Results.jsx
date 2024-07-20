@@ -1,7 +1,55 @@
 import Link from 'next/link';
 import styles from '../styles/Results.module.css';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { supabase } from '@/lib/initSupabase';
+import { useEffect } from 'react';
+
 
 const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) => {
+
+    const { user, error, isLoading } = useUser();
+
+    // Function to post the scores to Supabase, if the user is logged in
+    function postScore({ score }) {
+
+        // Check if the user is logged in 
+        if (user && !isLoading) {
+            // We have a user
+
+            console.log(user);
+
+            const postToSupabase = async (user, score) => {
+                // Post questions to Supabase
+                const { data, error } = await supabase
+                    .from('scores')
+                    .insert({
+                        "user_id": user.email,
+                        "nickname": user.nickname,
+                        "score": score
+                    });
+
+                if (error) {
+                    console.log(error);
+                    return false;
+                }
+
+                return true;
+            }
+
+            postToSupabase(user, score)
+
+        }
+
+        // user not logged in
+        return false;
+    }
+
+
+    useEffect(() => {
+        postScore({ score });
+    }, [score]);
+
+
     return (
         <>
             <div className={styles.results + " card"}>
