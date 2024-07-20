@@ -62,11 +62,13 @@ const LeaderBoard = () => {
           </thead>
           <tbody>{topScores.map((user, index) => scoreRow(user, index))}</tbody>
         </table>
-        {/* 
+
         <div className="centered">
-          <h4>Sign-Up to see your score on the LeaderBoard</h4>
-          <button>Sign-Up</button>
-        </div> */}
+          <h4>Sign-In to start posting your scores to the LeaderBoard</h4>
+          <a href="/api/auth/login" className="button">
+            Sign In
+          </a>
+        </div>
       </div>
     </>
   );

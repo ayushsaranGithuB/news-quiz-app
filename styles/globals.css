@@ -204,9 +204,12 @@ main {
 }
 
 button,
-.button {
+.button,
+a.button:link,
+a.button:visited {
   display: inline-flex;
   height: 66px;
+  text-decoration: none;
   padding: 0 45px;
   justify-content: center;
   align-items: center;
