@@ -5,7 +5,6 @@ table.leaderboard {
     margin: 1rem auto 2rem;
     border-collapse: collapse;
     border-bottom: 1px solid #ccc;
-    opacity: 0.5;
 }
 
 table.leaderboard th {
