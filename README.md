@@ -5,7 +5,7 @@ How well do you know the news?
 Play this Quiz and find out
 
 ## See it in action:
-[![screenshot.png](https://news-quiz-app.vercel.app/)](https://i.postimg.cc/fy6NJWks/screenshot.png)]([https://postimg.cc/LgB7WpzQ](https://news-quiz-app.vercel.app/))
+![https://postimg.cc/LgB7WpzQ](https://news-quiz-app.vercel.app/)
 [https://news-quiz-app.vercel.app/](https://news-quiz-app.vercel.app/)
 
 ## How it works
