@@ -100,7 +100,7 @@ const ConvertToQuestions = ({ setStage, articles, setQuestions }) => {
             </ul>
 
 
-            <button onClick={handleSubmit}>Insert into Supabase</button>
+            <button onClick={handleSubmit}>Insert into Database</button>
 
         </div>
     );
