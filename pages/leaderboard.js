@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Leaderboard.module.css";
 import { client } from "@/lib/initAppwrite";
 import { Databases, Query } from "appwrite";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const LeaderBoard = () => {
   const [topScores, SetTopScores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const { user } = useUser();
 
   async function getScores() {
     // get the 20 top users, by adding up the sum of the scores for each user
@@ -50,7 +53,7 @@ const LeaderBoard = () => {
       setError(error);
     }
 
-    console.log(data);
+    // console.log(data);
 
     SetTopScores(data);
     setLoading(false);
@@ -92,12 +95,16 @@ const LeaderBoard = () => {
           <tbody>{topScores.map((user, index) => scoreRow(user, index))}</tbody>
         </table>
 
-        <div className="centered">
-          <h4>Sign-In to start posting your scores to the LeaderBoard</h4>
-          <a href="/api/auth/login" className="button">
-            Sign In
-          </a>
-        </div>
+        {user ? (
+          ""
+        ) : (
+          <div className="centered">
+            <h4>Sign-In to start posting your scores to the LeaderBoard</h4>
+            <a href="/api/auth/login" className="button">
+              Sign In
+            </a>
+          </div>
+        )}
       </div>
     </>
   );

@@ -22,24 +22,21 @@ const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) 
             const postToAppwrite = async (user, score) => {
                 // Post questions to Appwrite
 
-                const databases = new Databases(client);
-
                 try {
-                    const response = await databases.createDocument(
-                        "public",
-                        'scores',
-                        ID.unique(),
-                        {
-                            score: score,
-                            user_id: user.email,
-                            nickname: user.nickname,
-                            created_at: new Date().toISOString()
-                        });
+                    const response = await fetch('/api/postScore', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 'user_id': user.email, nickname: user.nickname, score }),
 
-                    console.log(response);
+                    });
+
+                    const data = await response.json();
+                    // console.log(data);
 
                 } catch (error) {
-                    console.log(error);
+                    console.error('An unexpected error happened:', error);
                 }
 
                 return true;
