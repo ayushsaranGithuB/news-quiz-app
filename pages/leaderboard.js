@@ -1,27 +1,59 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Leaderboard.module.css";
-import { supabase } from "@/lib/initSupabase";
+import { client } from "@/lib/initAppwrite";
+import { Databases, Query } from "appwrite";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const LeaderBoard = () => {
   const [topScores, SetTopScores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const { user } = useUser();
+
   async function getScores() {
     // get the 20 top users, by adding up the sum of the scores for each user
 
-    const { data, error } = await supabase
-      .from("user_scores_view")
-      .select("*")
-      .order("total_score", { ascending: false })
-      .limit(20);
+    const databases = new Databases(client);
 
-    if (error) {
-      console.log(error);
-      return false;
+    let data = [];
+
+    try {
+      const response = await databases.listDocuments("public", "scores", []);
+      data = response.documents;
+
+      //  group all the scores in data by user_id
+      const groupedData = data.reduce((acc, obj) => {
+        const key = obj.user_id;
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+      }, {});
+
+      //  sum up the scores for each user
+      const summedData = Object.keys(groupedData).map((key) => {
+        return groupedData[key].reduce((acc, obj) => {
+          return acc + obj.score;
+        }, 0);
+      });
+
+      //  create a new array of objects with the summed scores
+      data = Object.keys(groupedData).map((key, index) => {
+        return {
+          nickname: groupedData[key][0].nickname,
+          score: summedData[index],
+        };
+      });
+
+      //  sort the data by score
+      data.sort((a, b) => b.score - a.score);
+    } catch (error) {
+      setError(error);
     }
 
-    console.log(data);
+    // console.log(data);
 
     SetTopScores(data);
     setLoading(false);
@@ -40,10 +72,10 @@ const LeaderBoard = () => {
   }
 
   const scoreRow = (user, index) => (
-    <tr>
+    <tr key={index}>
       <td className="rank">{index + 1}</td>
       <td className="name">{user.nickname}</td>
-      <td className="score">{user.total_score}</td>
+      <td className="score">{user.score}</td>
     </tr>
   );
 
@@ -63,12 +95,16 @@ const LeaderBoard = () => {
           <tbody>{topScores.map((user, index) => scoreRow(user, index))}</tbody>
         </table>
 
-        <div className="centered">
-          <h4>Sign-In to start posting your scores to the LeaderBoard</h4>
-          <a href="/api/auth/login" className="button">
-            Sign In
-          </a>
-        </div>
+        {user ? (
+          ""
+        ) : (
+          <div className="centered">
+            <h4>Sign-In to start posting your scores to the LeaderBoard</h4>
+            <a href="/api/auth/login" className="button">
+              Sign In
+            </a>
+          </div>
+        )}
       </div>
     </>
   );

@@ -58,7 +58,7 @@ const Quiz = ({ questions }) => {
     return (
         <>
             {showScore ? (
-                <Results score={score} questions={questions} formatTime={formatTime} totalTimeTaken={totalTimeTaken} userAnswers={userAnswers} />                
+                <Results score={score} questions={questions} formatTime={formatTime} totalTimeTaken={totalTimeTaken} userAnswers={userAnswers} />
             ) : (
                 <>
                     <div className="quiz-status">
@@ -77,7 +77,7 @@ const Quiz = ({ questions }) => {
 
                             <div role="radiogroup" aria-required="false" dir="ltr" className="custom-grid" tabIndex="0">
 
-                                {questions[currentQuestion].options.map((option, index) => {
+                                {JSON.parse(questions[currentQuestion].options).map((option, index) => {
                                     // Assuming each option is an object with a single key-value pair,
                                     // where the key is the option identifier (e.g., "a", "b", "c", "d")
                                     // and the value is the option text.

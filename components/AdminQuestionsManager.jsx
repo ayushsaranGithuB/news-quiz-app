@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import FetchNewsArticles from './FetchNewsArticles';
 import ConvertToQuestions from './ConvertToQuestions';
-import PostToSupabase from './PostToSupabase';
+import PostToDatabase from './PostToDatabase';
 
 import styles from '@/styles/Admin.module.css';
 
@@ -46,10 +46,10 @@ const AdminQuestionsManager = () => {
                     </li>
                     <li>
                         {stage > 2 ? (
-                            <a href="#" onClick={() => setStage(3)}><span className={styles.number}>3</span> Insert into Supabase</a>
+                            <a href="#" onClick={() => setStage(3)}><span className={styles.number}>3</span> Insert into Database</a>
                         ) : (
                             <>
-                                <span className={styles.number}>3</span> Insert into Supabase
+                                <span className={styles.number}>3</span> Insert into Database
                             </>
 
                         )}
@@ -73,7 +73,7 @@ const AdminQuestionsManager = () => {
             case 2:
                 return <ConvertToQuestions setStage={setStage} articles={articlesToConvert} setQuestions={setQuestions} />;
             case 3:
-                return <PostToSupabase setStage={setStage} questions={questions} />;
+                return <PostToDatabase setStage={setStage} questions={questions} />;
             default:
                 return <p>Stage: {stage}</p>;
         }
