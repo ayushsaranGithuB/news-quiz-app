@@ -1,42 +1,51 @@
 import Link from 'next/link';
 import styles from '../styles/Results.module.css';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { supabase } from '@/lib/initSupabase';
 import { useEffect } from 'react';
+import { client } from "@/lib/initAppwrite";
+import { Databases, ID } from "appwrite";
 
 
 const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) => {
 
     const { user, error, isLoading } = useUser();
 
-    // Function to post the scores to Supabase, if the user is logged in
+    // Function to post the scores to Appwrite, if the user is logged in
     function postScore({ score }) {
 
         // Check if the user is logged in 
         if (user && !isLoading) {
             // We have a user
 
-            console.log(user);
+            // console.log(user);
 
-            const postToSupabase = async (user, score) => {
-                // Post questions to Supabase
-                const { data, error } = await supabase
-                    .from('scores')
-                    .insert({
-                        "user_id": user.email,
-                        "nickname": user.nickname,
-                        "score": score
-                    });
+            const postToAppwrite = async (user, score) => {
+                // Post questions to Appwrite
 
-                if (error) {
+                const databases = new Databases(client);
+
+                try {
+                    const response = await databases.createDocument(
+                        "public",
+                        'scores',
+                        ID.unique(),
+                        {
+                            score: score,
+                            user_id: user.email,
+                            nickname: user.nickname,
+                            created_at: new Date().toISOString()
+                        });
+
+                    console.log(response);
+
+                } catch (error) {
                     console.log(error);
-                    return false;
                 }
 
                 return true;
             }
 
-            postToSupabase(user, score)
+            postToAppwrite(user, score);
 
         }
 
@@ -97,16 +106,16 @@ const Results = ({ score, questions, formatTime, totalTimeTaken, userAnswers }) 
                                 {userAnswers[index] === question.correctAnswer ? (
                                     <>
                                         <div className={styles.correct}>
-                                            <strong> {'✓'}</strong> {question.options.find(option => option[userAnswers[index]])[userAnswers[index]]}
+                                            <strong> {'✓'}</strong> {JSON.parse(question.options).find(option => option[userAnswers[index]])[userAnswers[index]]}
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className={styles.wrong}>
-                                            <strong>{'✖'}</strong> {userAnswers[index] ? question.options.find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
+                                            <strong>{'✖'}</strong> {userAnswers[index] ? JSON.parse(question.options).find(option => option[userAnswers[index]])[userAnswers[index]] : 'No answer'}<br />
                                         </div>
                                         <div className={styles.correct}>
-                                            <strong>{'✓'}</strong> {question.options.find(option => option[question.correctAnswer])[question.correctAnswer]}
+                                            <strong>{'✓'}</strong> {JSON.parse(question.options).find(option => option[question.correctAnswer])[question.correctAnswer]}
                                         </div>
                                         {/* Source */}
 

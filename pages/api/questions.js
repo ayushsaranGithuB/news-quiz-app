@@ -1,29 +1,37 @@
-import { supabase } from "@/lib/initSupabase";
+import { client } from "@/lib/initAppwrite";
+import { Databases, Query } from "appwrite";
 
 const fetchQuestions = async () => {
-  const { data: questions } = await supabase
-    .from("questions")
-    .select("*")
-    .order("id", { ascending: false });
-  return questions;
+  const databases = new Databases(client);
+
+  try {
+    const response = await databases.listDocuments("public", "questions", []);
+    return response.documents;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 
 export default async function handler(req, res) {
   let questions = await fetchQuestions();
 
-  // select 10 random questions
-  questions.sort(() => Math.random() - 0.5);
-  questions.splice(5);
+  // console.log(questions);
+
+  if (Array.isArray(questions)) {
+    // select 10 random questions
+    questions.sort(() => Math.random() - 0.5);
+    questions.splice(5);
+  } else {
+    questions = [];
+  }
 
   const jsonResponse = {
     questions,
   };
 
-  // set a 5 second delay to simulate network latency
-  setTimeout(() => {
-    res.setHeader("Cache-Control", "s-maxage=40");
-    res.status(200).json(jsonResponse);
-  }, 2000);
+  res.setHeader("Cache-Control", "s-maxage=40");
+  res.status(200).json(jsonResponse);
 }
 
 // Opt out of caching for all data requests in the route segment
